@@ -20,10 +20,16 @@
 </script>
 <template>
   <div id="menu-whole-container" class=" h-screen w-screen flex flex-col">
-    <div id="meal-container" class=" w-full h-56 bg-teal-50 flex justify-center pt-10">
-      <component :is="currentLeftComponent" class="relative  translate-x-5 z-20" id="component-selecter-left"></component>
-      <component :is="currentMiddleComponent" class="relative  translate-y-5 z-10" id="component-selecter-middle"></component>
-      <component :is="currentRightComponent" class="relative  -translate-x-5 z-20" id="component-selecter-right"></component>
+    <div id="meal-container" class="w-full h-56 bg-teal-50 flex justify-center pt-10">
+      <transition>
+        <component :is="currentLeftComponent" class="z-20" id="component-selecter-left"></component>
+      </transition>
+      <transition>
+        <component :is="currentMiddleComponent" class="z-10" id="component-selecter-middle"></component>
+      </transition>
+      <transition>
+        <component :is="currentRightComponent" class="z-20" id="component-selecter-right"></component>
+      </transition>
     </div>
     <div id="meal-selector" class="bg-violet-50 grow flex flex-col w-full justify-around items-center">
       <div id="left-selector">
@@ -47,7 +53,27 @@
         <button class=" m-4 w-16 h-12 rounded-2xl bg-violet-200" @click="changeRight()">Figma</button>
         <button class=" m-4 w-16 h-12 rounded-2xl bg-violet-200" @click="changeRight(GithubIcon)">Github</button>
       </div>
-      
     </div>
   </div>
 </template>
+
+<style>
+.v-enter-active{
+  transition-property: all;
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.26, 1.33, 0.67, 1.50);;
+}
+.v-leave-active {
+  transition: none;
+}
+.v-enter-from,
+.v-leave-to {     /* 进入前/离开后完全透明 */
+  transform: scale(0); /* 进入前/离开后缩小到 30% */
+}
+.v-enter-to{
+  transform: scale(1); /* 进入后/离开前恢复到原始大小 */
+}
+.v-leave-from {
+  transition: none;
+}
+</style>
